@@ -1,0 +1,16 @@
+{
+  "name": "Daydream — plan cute days, even offline",
+  "short_name": "Daydream",
+  "description": "Cafés, photo spots and pottery classes near you. Build a whole day inside your budget, keep it all with zero signal.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#FBF7F4",
+  "theme_color": "#FBF7F4",
+  "categories": ["travel", "lifestyle", "social"],
+  "icons": [
+    { "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "assets/icon-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}

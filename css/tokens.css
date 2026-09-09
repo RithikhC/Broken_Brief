@@ -1,0 +1,85 @@
+/* ─────────────────────────────────────────────────────────────
+   Daydream — design tokens
+   Warm, paper-ish, Pinterest-coded. No web fonts: the app has to
+   look identical with the network unplugged, so everything is
+   system-stack + procedurally drawn art.
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* ── surface & ink ── */
+  --paper:        #FBF7F4;
+  --paper-2:      #F4EDE7;
+  --card:         #FFFFFF;
+  --ink:          #2C2521;
+  --ink-2:        #5C524B;
+  --ink-3:        #928579;
+  --line:         #E9E0D8;
+  --line-2:       #D9CCC1;
+
+  /* ── accents ── */
+  --terracotta:   #C4694A;
+  --terracotta-d: #A4553A;
+  --blush:        #E7A99F;
+  --blush-soft:   #F6DCD6;
+  --matcha:       #7D9471;
+  --matcha-soft:  #DFE7D9;
+  --butter:       #EFCB8C;
+  --butter-soft:  #FAEBD1;
+  --plum:         #7A5C7E;
+  --plum-soft:    #EADFEC;
+  --sky:          #7E9CB5;
+  --sky-soft:     #DCE7EF;
+
+  /* ── semantic ── */
+  --ok:           #6E8E63;
+  --warn:         #C98A3C;
+  --err:          #B5544A;
+  --offline:      #9A8F86;
+
+  /* ── type ── */
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;
+  --sans: ui-sans-serif, -apple-system, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+
+  /* ── shape ── */
+  --r-xs: 8px;
+  --r-sm: 12px;
+  --r-md: 18px;
+  --r-lg: 24px;
+  --r-xl: 32px;
+  --r-pill: 999px;
+
+  /* ── depth ── */
+  --sh-1: 0 1px 2px rgba(44,37,33,.05), 0 2px 8px rgba(44,37,33,.05);
+  --sh-2: 0 2px 6px rgba(44,37,33,.06), 0 10px 26px rgba(44,37,33,.08);
+  --sh-3: 0 8px 20px rgba(44,37,33,.10), 0 24px 60px rgba(44,37,33,.14);
+  --sh-in: inset 0 1px 0 rgba(255,255,255,.7);
+
+  /* ── motion ── */
+  --e-out: cubic-bezier(.22,.85,.3,1);
+  --e-spring: cubic-bezier(.34,1.42,.5,1);
+
+  /* ── layout ── */
+  --topbar-h: 62px;
+  --maxw: 1240px;
+}
+
+/* Kind → colour mapping, used by cards, chips and the procedural art. */
+:root {
+  --k-cafe:     var(--terracotta);
+  --k-photo:    var(--plum);
+  --k-activity: var(--matcha);
+  --k-dessert:  var(--blush);
+  --k-view:     var(--sky);
+  --k-market:   var(--butter);
+  --k-art:      var(--plum);
+  --k-nature:   var(--matcha);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}

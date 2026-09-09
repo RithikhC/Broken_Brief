@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Daydream — plan cute days, even offline</title>
+<meta name="description" content="Find cafes, photo spots and pottery classes near you, build a whole day inside your budget, and keep it all — even with zero signal." />
+<meta name="theme-color" content="#FBF7F4" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="assets/icon.svg" />
+<link rel="stylesheet" href="css/tokens.css" />
+<link rel="stylesheet" href="css/base.css" />
+<link rel="stylesheet" href="css/components.css" />
+<link rel="stylesheet" href="css/views.css" />
+</head>
+<body>
+
+<!-- ══ Boot / onboarding gate ══ -->
+<div id="gate" class="gate" hidden></div>
+
+<!-- ══ App shell ══ -->
+<div id="shell" class="shell" hidden>
+
+  <header class="topbar">
+    <div class="topbar__in">
+      <button class="brand" data-nav="discover" aria-label="Daydream home">
+        <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M16 3c2.5 4.2 5.6 6.1 9.8 6.6-1.4 4-1 7.6 1.2 11.2-4.4-.6-7.8.6-10.4 3.9-2.6-3.3-6-4.5-10.4-3.9 2.2-3.6 2.6-7.2 1.2-11.2C11.6 9.1 13.5 7.2 16 3Z"/>
+          <circle cx="16" cy="26" r="2.4"/>
+        </svg>
+        <span class="brand__word">daydream</span>
+      </button>
+
+      <nav class="nav" aria-label="Main">
+        <button class="nav__item is-active" data-nav="discover"><span class="nav__ico">✿</span>Discover</button>
+        <button class="nav__item" data-nav="plan"><span class="nav__ico">✧</span>Plan a day</button>
+        <button class="nav__item" data-nav="live"><span class="nav__ico">◉</span>Nearby<span class="nav__dot" id="liveDot" hidden></span></button>
+        <button class="nav__item" data-nav="boards"><span class="nav__ico">❥</span>Saved<span class="nav__count" id="savedCount">0</span></button>
+      </nav>
+
+      <div class="topbar__right">
+        <button id="netChip" class="chip chip--net" title="Connection status">
+          <span class="chip__pip"></span><span class="chip__label">Live</span>
+        </button>
+        <button id="avatarBtn" class="avatar" aria-label="Your profile"></button>
+      </div>
+    </div>
+    <div id="outboxBar" class="outbox" hidden>
+      <span class="outbox__spin"></span>
+      <span id="outboxText">3 changes waiting for signal</span>
+      <button id="outboxFlush" class="outbox__btn">Sync now</button>
+    </div>
+  </header>
+
+  <main id="view" class="view" tabindex="-1"></main>
+
+  <nav class="tabbar" aria-label="Main mobile">
+    <button class="tabbar__item is-active" data-nav="discover">✿<span>Discover</span></button>
+    <button class="tabbar__item" data-nav="plan">✧<span>Plan</span></button>
+    <button class="tabbar__item" data-nav="live">◉<span>Nearby</span></button>
+    <button class="tabbar__item" data-nav="boards">❥<span>Saved</span></button>
+  </nav>
+</div>
+
+<!-- ══ Overlays ══ -->
+<div id="sheet" class="sheet" hidden aria-modal="true" role="dialog"></div>
+<div id="toasts" class="toasts" aria-live="polite"></div>
+
+<noscript>
+  <div style="padding:3rem;font:16px/1.6 Georgia,serif;text-align:center">
+    Daydream needs JavaScript — it does all of its thinking on your device, so nothing works without it.
+  </div>
+</noscript>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
