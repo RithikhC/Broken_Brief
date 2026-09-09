@@ -5,7 +5,7 @@
 **How it works, what's real, and how to demo it.**
 For the assumptions behind the product, see [README.md](README.md) and [DECISIONS.md](DECISIONS.md).
 
-### ▶︎ [**Open the live demo**](https://rithikhc.github.io/Broken_Brief/)
+### ▶︎ [**Open the live demo**](https://daydream-ruby.vercel.app)
 
 `zero dependencies` · `zero build step` · `zero backend` · `46 spots` · `~2.7ms to plan a day`
 
@@ -49,7 +49,7 @@ Summary below; the short version is in [README.md](README.md), the long version 
 
 ## Run it
 
-**Easiest:** just open the [live demo](https://rithikhc.github.io/Broken_Brief/). It's the
+**Easiest:** just open the [live demo](https://daydream-ruby.vercel.app). It's the
 same build as this repo, served straight from GitHub Pages.
 
 To run it locally — no Node, no npm, no build step.
@@ -66,9 +66,14 @@ Then open **http://localhost:8000**. Any static server works (`npx serve`, VS Co
 Server). It needs `http://` rather than `file://` because ES modules, service workers and
 IndexedDB all require a real origin.
 
-**Deploy it:** it's a static site, so *Settings → Pages → Deploy from branch `main` / root*
-puts it on the web with nothing to configure — and it installs to a phone home screen as a
-PWA from there. That's how the live demo above is hosted.
+**Hosting:** the live demo runs on Vercel as a static deployment — there is no build
+step, because there is nothing to build. Its build command simply pulls this repo, so
+the deployed site always matches `main`. Being a real HTTPS origin, the service worker
+registers and the app installs to a phone home screen as a PWA (verified: 30 files
+precached on first load).
+
+It deploys anywhere static. GitHub Pages also works with no configuration:
+*Settings → Pages → Deploy from branch `main` / root*.
 
 ---
 

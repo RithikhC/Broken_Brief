@@ -4,7 +4,7 @@
 
 **Cute days, planned properly — even with no signal.**
 
-### ▶︎ [**Open the live demo**](https://rithikhc.github.io/Broken_Brief/)
+### ▶︎ [**Open the live demo**](https://daydream-ruby.vercel.app)
 
 [Build notes](BUILD.md) · [Full reasoning](DECISIONS.md) · Run locally: `py serve.py`
 
