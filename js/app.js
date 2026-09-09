@@ -14,6 +14,7 @@ import { state } from './core/state.js';
 import { spots as ALL_SPOTS, VIBES } from './data/spots.js';
 import { toast } from './ui/overlay.js';
 import { openProfile } from './ui/profile.js';
+import { applyTheme, currentTheme, nextTheme, scatterStickers, confetti } from './ui/delight.js';
 import { renderDiscover, discoverLiveUpdate } from './views/discover.js';
 import { renderPlan, planWith } from './views/plan.js';
 import { renderLive, teardownLive } from './views/live.js';
@@ -28,6 +29,8 @@ let unseen = 0;
   registerSW();                // 0. start caching the shell immediately — the
                                //    offline promise shouldn't wait for sign-in
   await store.init();          // 1. local truth
+  applyTheme(currentTheme());  //    …so the palette is right on first paint
+  scatterStickers();
   net.init();                  // 2. connectivity model
   state.load();                // 3. who am I
 
@@ -120,6 +123,7 @@ function gate() {
     state.signIn({ handle: draft.handle, emoji: draft.emoji, color: '#C4694A', vibes: draft.vibes });
     host.hidden = true;
     start();
+    confetti({ y: innerHeight * 0.35, count: 46 });
     toast(`Welcome, ${state.me.handle} — everything here works offline ✨`, { tone: 'warm' });
   };
 
@@ -133,6 +137,13 @@ function wireChrome() {
 
   $('#avatarBtn').textContent = state.me.emoji;
   $('#avatarBtn').addEventListener('click', openProfile);
+
+  $('#themeBtn').addEventListener('click', ev => {
+    const t = nextTheme();
+    const b = ev.currentTarget.getBoundingClientRect();
+    confetti({ x: b.left + b.width / 2, y: b.bottom, count: 16, emoji: false });
+    toast(`${t.emoji} ${t.name} palette`, { tone: 'warm' });
+  });
 
   $('#netChip').addEventListener('click', () => {
     net.toggleAirplane();
@@ -220,7 +231,18 @@ function go(name, { silent = false } = {}) {
 function registerSW() {
   if (!('serviceWorker' in navigator)) return;
   if (!location.protocol.startsWith('http')) return;   // file:// can't host a SW
-  navigator.serviceWorker.register('sw.js').then(reg => {
-    console.info('[daydream] offline shell ready');
-  }).catch(err => console.warn('[daydream] sw failed', err.message));
+
+  // A cache-first shell will happily serve yesterday's build forever. When a new
+  // worker takes over, reload once so the user is never a version behind — the
+  // difference between a demo showing the current build and the previous one.
+  let refreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (refreshing) return;
+    refreshing = true;
+    location.reload();
+  });
+
+  navigator.serviceWorker.register('sw.js')
+    .then(() => console.info('[daydream] offline shell ready'))
+    .catch(err => console.warn('[daydream] sw failed', err.message));
 }

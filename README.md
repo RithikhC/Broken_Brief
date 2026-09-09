@@ -7,7 +7,11 @@
 Cafés, photo spots and pottery classes near you · a whole day built to *your* budget ·
 the photo stop dropped into golden hour on purpose · and every bit of it works with the radio off.
 
+### ▶︎ [**Open the live demo**](https://rithikhc.github.io/Broken_Brief/)
+
 `zero dependencies` · `zero build step` · `zero backend` · `46 spots` · `~2.7ms to plan a day`
+
+Works on a phone. Add it to your home screen and it runs as an app — including in flight mode.
 
 </div>
 
@@ -43,7 +47,8 @@ that's the document to read if you only read one.
 5. **Tap the "Live" chip** in the header. ✈️ **Airplane Mode.**
    Now: browse, save spots, plan a completely different day, make a poster. *Everything still works.* Saves stack up in a visible queue — "2 changes waiting for signal".
 6. **Tap it again.** The queue drains, the feed thaws, and you get "Synced 2 queued changes ✨".
-7. **The kicker:** open the same URL in a second window. That's a real second device — share a find in one, it appears in the other, live, with no server involved.
+7. **Tap 🎨** in the header to cycle four palettes — Peach, Matcha, Lavender and a full Midnight dark mode. Every colour in the app is a token, so a whole new mood is ~20 lines of CSS.
+8. **The kicker:** open the same URL in a second window. That's a real second device — share a find in one, it appears in the other, live, with no server involved.
 
 **To prove the offline claim properly:** load the app once, then kill the server (`Ctrl+C`) and reload the page. It still opens, and still plans a full day. *(Verified — see below.)*
 
@@ -51,7 +56,10 @@ that's the document to read if you only read one.
 
 ## Run it
 
-No Node, no npm, no build step.
+**Easiest:** just open the [live demo](https://rithikhc.github.io/Broken_Brief/). It's the
+same build as this repo, served straight from GitHub Pages.
+
+To run it locally — no Node, no npm, no build step.
 
 **Windows:** double-click `start.bat`.
 
@@ -67,7 +75,7 @@ IndexedDB all require a real origin.
 
 **Deploy it:** it's a static site, so *Settings → Pages → Deploy from branch `main` / root*
 puts it on the web with nothing to configure — and it installs to a phone home screen as a
-PWA from there.
+PWA from there. That's how the live demo above is hosted.
 
 ---
 
@@ -90,10 +98,12 @@ A demo that quietly fakes its headline feature isn't worth much, so:
 
 ```
 index.html            app shell
-sw.js                 precaches all 28 files — offline on the second visit too
+sw.js                 precaches the whole app — offline on the second visit too
 serve.py              dev server (keep-alive; the stock one drops parallel module loads)
 
-css/                  tokens → base → components → views
+css/                  tokens → base → components → views → fun
+                      (fun.css is the personality layer: gradients, stickers,
+                       springs, confetti — all CSS, so it survives offline)
 js/
   app.js              boot, identity gate, router
   lib/
@@ -111,13 +121,14 @@ js/
   data/spots.js       the Dubai city pack (swap it to re-target the whole app)
   views/              discover · plan · live · boards
   ui/                 cards, sheets, poster canvas, profile
+    delight.js        palettes, floating stickers, confetti
 ```
 
 ### Why no framework
 
 The hard requirement is *"works great with no signal"*. A build step and 200KB of
 runtime are things that can fail between the user and the app. Vanilla ES modules
-means the entire product is 28 files a service worker can precache in one go,
+means the entire product is a folder of files a service worker precaches in one go,
 it starts instantly, and it deploys anywhere static. The constraint drove the
 architecture, which is the point of the exercise.
 
@@ -136,6 +147,18 @@ Each repair re-lays the entire clock, so the itinerary is never half-updated, an
 every adjustment is surfaced to the user instead of hidden. It reasons about
 opening hours, day-of-week (so Thursday-only night markets only show on Thursdays),
 travel time *and* taxi fares, dwell times, vibe matching, and light.
+
+### Look and feel
+
+Four palettes — **Peach**, **Matcha**, **Lavender** and a full **Midnight** dark
+mode — behind the 🎨 button. Every colour in the app resolves from CSS custom
+properties, so a whole new mood is about twenty lines and nothing is hardcoded.
+Cards, tags, timeline markers and shadows all tint themselves to the *kind* of
+place (café orange, photo purple, pottery green) from the same token set.
+
+No web fonts, no icon library, no images: the covers are generated SVG, the
+background is an animated CSS gradient mesh, the confetti is CSS keyframes.
+The whole aesthetic ships in the precache and renders identically offline.
 
 ### The bit we're proudest of
 

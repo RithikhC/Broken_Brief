@@ -1,79 +1,192 @@
 /* ─────────────────────────────────────────────────────────────
    Daydream — design tokens
-   Warm, paper-ish, Pinterest-coded. No web fonts: the app has to
-   look identical with the network unplugged, so everything is
-   system-stack + procedurally drawn art.
+
+   Four switchable palettes (the 🎨 button in the header). Every
+   component is built from these variables, so a whole new mood is
+   ~20 lines. No web fonts anywhere: the app has to look identical
+   with the network unplugged.
    ───────────────────────────────────────────────────────────── */
 
 :root {
-  /* ── surface & ink ── */
-  --paper:        #FBF7F4;
-  --paper-2:      #F4EDE7;
+  /* ══ PEACH — the default ══ */
+  --paper:        #FFEFE3;
+  --paper-2:      #FCE1D0;
+  --paper-3:      #F7CFB6;
   --card:         #FFFFFF;
-  --ink:          #2C2521;
-  --ink-2:        #5C524B;
-  --ink-3:        #928579;
-  --line:         #E9E0D8;
-  --line-2:       #D9CCC1;
+  --ink:          #2A1F1B;
+  --ink-2:        #6B5A50;
+  --ink-3:        #A28D80;
+  --line:         #F5E2D6;
+  --line-2:       #E8CDBB;
 
-  /* ── accents ── */
-  --terracotta:   #C4694A;
-  --terracotta-d: #A4553A;
-  --blush:        #E7A99F;
-  --blush-soft:   #F6DCD6;
-  --matcha:       #7D9471;
-  --matcha-soft:  #DFE7D9;
-  --butter:       #EFCB8C;
-  --butter-soft:  #FAEBD1;
-  --plum:         #7A5C7E;
-  --plum-soft:    #EADFEC;
-  --sky:          #7E9CB5;
-  --sky-soft:     #DCE7EF;
+  --primary:      #F0603C;
+  --primary-d:    #D14526;
+  --primary-soft: #FFE2D8;
 
-  /* ── semantic ── */
-  --ok:           #6E8E63;
-  --warn:         #C98A3C;
-  --err:          #B5544A;
-  --offline:      #9A8F86;
+  --k-cafe:       #E8623C;
+  --k-dessert:    #FF7BA0;
+  --k-photo:      #A55CF0;
+  --k-art:        #C44FD6;
+  --k-activity:   #35B37E;
+  --k-nature:     #48B85C;
+  --k-view:       #2E9FE0;
+  --k-market:     #F5A623;
 
-  /* ── type ── */
+  --gold:         #FFB443;
+  --gold-2:       #FF8A3D;
+  --ok:           #35A46B;
+  --warn:         #E08A20;
+  --err:          #E0483C;
+  --offline:      #A2938A;
+
+  --glow: 0 10px 30px rgba(240, 96, 60, .22);
+  --mesh-1: rgba(255, 155, 120, .40);
+  --mesh-2: rgba(255, 199, 115, .38);
+  --mesh-3: rgba(165, 92, 240, .22);
+  --mesh-4: rgba(72, 184, 92, .22);
+  --art-filter: none;
+}
+
+/* ══ MATCHA ══ */
+:root[data-theme="matcha"] {
+  --paper:        #EDF7E6;
+  --paper-2:      #DCEDD1;
+  --paper-3:      #C9E2BA;
+  --card:         #FFFFFF;
+  --ink:          #1E2A1C;
+  --ink-2:        #4F6249;
+  --ink-3:        #87997F;
+  --line:         #DEEDD5;
+  --line-2:       #C4DCB6;
+
+  --primary:      #3FA35F;
+  --primary-d:    #2C8348;
+  --primary-soft: #D8F0DE;
+
+  --k-cafe:       #C97F2E;
+  --k-dessert:    #E8698F;
+  --k-photo:      #7C6BE0;
+  --k-art:        #B45BD0;
+  --k-activity:   #2F9E70;
+  --k-nature:     #47A83F;
+  --k-view:       #2E97C4;
+  --k-market:     #DFA018;
+
+  --gold:         #F2B942;
+  --gold-2:       #E89234;
+  --glow: 0 10px 30px rgba(63, 163, 95, .22);
+  --mesh-1: rgba(120, 200, 140, .38);
+  --mesh-2: rgba(230, 210, 120, .34);
+  --mesh-3: rgba(120, 190, 220, .24);
+  --mesh-4: rgba(200, 150, 230, .18);
+  --art-filter: none;
+}
+
+/* ══ LAVENDER ══ */
+:root[data-theme="lavender"] {
+  --paper:        #F4ECFF;
+  --paper-2:      #E9DCFB;
+  --paper-3:      #DBC8F5;
+  --card:         #FFFFFF;
+  --ink:          #241C33;
+  --ink-2:        #5B4E75;
+  --ink-3:        #9188A8;
+  --line:         #EDE4FA;
+  --line-2:       #DACCF2;
+
+  --primary:      #8B4FE8;
+  --primary-d:    #7038CC;
+  --primary-soft: #EDE0FF;
+
+  --k-cafe:       #D9663F;
+  --k-dessert:    #F0559A;
+  --k-photo:      #8B4FE8;
+  --k-art:        #C049E0;
+  --k-activity:   #35AE8C;
+  --k-nature:     #4CAE5C;
+  --k-view:       #3D8BE8;
+  --k-market:     #EF9E2A;
+
+  --gold:         #FFC04D;
+  --gold-2:       #F79340;
+  --glow: 0 10px 30px rgba(139, 79, 232, .24);
+  --mesh-1: rgba(180, 130, 255, .34);
+  --mesh-2: rgba(255, 160, 210, .30);
+  --mesh-3: rgba(130, 190, 255, .26);
+  --mesh-4: rgba(255, 210, 140, .22);
+  --art-filter: none;
+}
+
+/* ══ MIDNIGHT — dark mode, because demos happen in dark rooms ══ */
+:root[data-theme="midnight"] {
+  --paper:        #14111C;
+  --paper-2:      #1F1A2B;
+  --paper-3:      #2B2439;
+  --card:         #201B2C;
+  --ink:          #F6F0FA;
+  --ink-2:        #C3B6D4;
+  --ink-3:        #8C7FA3;
+  --line:         #2E2740;
+  --line-2:       #413656;
+
+  --primary:      #FF7A52;
+  --primary-d:    #FF9270;
+  --primary-soft: #3A2434;
+
+  --k-cafe:       #FF8A5C;
+  --k-dessert:    #FF7FAE;
+  --k-photo:      #B98BFF;
+  --k-art:        #E070F0;
+  --k-activity:   #45D2A0;
+  --k-nature:     #62D97A;
+  --k-view:       #56BFFF;
+  --k-market:     #FFC155;
+
+  --gold:         #FFC155;
+  --gold-2:       #FF9A4D;
+  --ok:           #4FD48A;
+  --warn:         #FFB44D;
+  --err:          #FF6B5C;
+  --offline:      #7A6E8C;
+
+  --glow: 0 10px 34px rgba(255, 122, 82, .28);
+  --mesh-1: rgba(255, 122, 82, .26);
+  --mesh-2: rgba(185, 139, 255, .26);
+  --mesh-3: rgba(86, 191, 255, .20);
+  --mesh-4: rgba(69, 210, 160, .18);
+  --art-filter: saturate(.92) brightness(.82);
+}
+
+/* ── shared, theme-independent ── */
+:root {
   --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;
   --sans: ui-sans-serif, -apple-system, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
   --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
 
-  /* ── shape ── */
   --r-xs: 8px;
   --r-sm: 12px;
   --r-md: 18px;
   --r-lg: 24px;
   --r-xl: 32px;
+  --r-2xl: 42px;
   --r-pill: 999px;
 
-  /* ── depth ── */
-  --sh-1: 0 1px 2px rgba(44,37,33,.05), 0 2px 8px rgba(44,37,33,.05);
-  --sh-2: 0 2px 6px rgba(44,37,33,.06), 0 10px 26px rgba(44,37,33,.08);
-  --sh-3: 0 8px 20px rgba(44,37,33,.10), 0 24px 60px rgba(44,37,33,.14);
-  --sh-in: inset 0 1px 0 rgba(255,255,255,.7);
+  --sh-1: 0 1px 2px rgba(30, 20, 15, .04), 0 3px 10px rgba(30, 20, 15, .05);
+  --sh-2: 0 3px 8px rgba(30, 20, 15, .07), 0 14px 32px rgba(30, 20, 15, .09);
+  --sh-3: 0 10px 24px rgba(30, 20, 15, .12), 0 30px 70px rgba(30, 20, 15, .18);
 
-  /* ── motion ── */
   --e-out: cubic-bezier(.22,.85,.3,1);
-  --e-spring: cubic-bezier(.34,1.42,.5,1);
+  --e-spring: cubic-bezier(.34,1.46,.52,1);
 
-  /* ── layout ── */
   --topbar-h: 62px;
-  --maxw: 1240px;
+  --maxw: 1280px;
 }
 
-/* Kind → colour mapping, used by cards, chips and the procedural art. */
-:root {
-  --k-cafe:     var(--terracotta);
-  --k-photo:    var(--plum);
-  --k-activity: var(--matcha);
-  --k-dessert:  var(--blush);
-  --k-view:     var(--sky);
-  --k-market:   var(--butter);
-  --k-art:      var(--plum);
-  --k-nature:   var(--matcha);
+/* Tint helper: any element that sets `--k` gets a matching soft background
+   and a readable foreground, in every palette, for free. */
+.tint {
+  background: color-mix(in srgb, var(--k, var(--primary)) 15%, var(--card));
+  color: color-mix(in srgb, var(--k, var(--primary)) 72%, var(--ink));
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -82,4 +195,24 @@
     animation-iteration-count: 1 !important;
     transition-duration: .001ms !important;
   }
+}
+
+/* ── Compatibility aliases ────────────────────────────────────
+   Earlier components were written against named colours. These map
+   them onto the palette system, so every existing rule re-themes
+   itself when you switch palettes. Declared on :root alongside the
+   theme overrides, so they always resolve to the active palette.  */
+:root {
+  --terracotta:   var(--primary);
+  --terracotta-d: var(--primary-d);
+  --blush:        var(--k-dessert);
+  --blush-soft:   var(--primary-soft);
+  --matcha:       var(--k-activity);
+  --matcha-soft:  color-mix(in srgb, var(--k-activity) 18%, var(--card));
+  --butter:       var(--gold);
+  --butter-soft:  color-mix(in srgb, var(--gold) 24%, var(--card));
+  --plum:         var(--k-photo);
+  --plum-soft:    color-mix(in srgb, var(--k-photo) 16%, var(--card));
+  --sky:          var(--k-view);
+  --sky-soft:     color-mix(in srgb, var(--k-view) 16%, var(--card));
 }

@@ -8,7 +8,7 @@
  *
  * There are no images to cache: covers are generated as SVG at runtime.
  */
-const VERSION = 'daydream-v1';
+const VERSION = 'daydream-v3';
 
 const SHELL = [
   './',
@@ -19,6 +19,7 @@ const SHELL = [
   './css/base.css',
   './css/components.css',
   './css/views.css',
+  './css/fun.css',
   './js/app.js',
   './js/lib/dom.js',
   './js/lib/art.js',
@@ -35,6 +36,7 @@ const SHELL = [
   './js/ui/card.js',
   './js/ui/poster.js',
   './js/ui/profile.js',
+  './js/ui/delight.js',
   './js/views/discover.js',
   './js/views/plan.js',
   './js/views/live.js',

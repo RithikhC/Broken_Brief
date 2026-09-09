@@ -2,11 +2,12 @@
 import { h, money, dur, clock, ago } from '../lib/dom.js';
 import { cover, cardRatio } from '../lib/art.js';
 import { isOpenNow, opensLater, goldenIn, sunToday, dayIdx } from '../core/clock.js';
-import { KIND_LABEL } from '../data/spots.js';
+import { KIND_LABEL, KIND_EMOJI } from '../data/spots.js';
 import { state } from '../core/state.js';
 import { sync } from '../lib/sync.js';
 import { net } from '../lib/net.js';
 import { sheet, closeSheet, toast } from './overlay.js';
+import { burstFrom } from './delight.js';
 
 /* ── badges ───────────────────────────────────────────────── */
 
@@ -35,7 +36,10 @@ function pingFor(spotId) {
 
 export function spotCard(spot, { compact = false } = {}) {
   const ratio = compact ? 0.85 : cardRatio(spot);
-  const art = h('div.card__art', { style: { aspectRatio: `1 / ${ratio}` } }, [cover(spot, { ratio })]);
+  const art = h('div.card__art', { style: { aspectRatio: `1 / ${ratio}` } }, [
+    cover(spot, { ratio }),
+    h('div.card__sticker', { text: KIND_EMOJI[spot.kind] || '✨' }),
+  ]);
 
   const saveBtn = h('button.card__save' + (state.isSaved(spot.id) ? ' is-on' : ''), {
     'aria-label': `Save ${spot.name}`,
@@ -44,6 +48,7 @@ export function spotCard(spot, { compact = false } = {}) {
       const on = state.toggleSave(spot);
       saveBtn.classList.toggle('is-on', on);
       saveBtn.textContent = on ? '❤' : '♡';
+      if (on) burstFrom(saveBtn);
       toast(on ? `Saved <b>${spot.name}</b>${net.online ? '' : ' — will sync when you have signal'}`
                 : `Removed <b>${spot.name}</b>`,
         { tone: on ? 'warm' : 'mute', icon: on ? '❤' : '' });
@@ -53,7 +58,7 @@ export function spotCard(spot, { compact = false } = {}) {
 
   const ping = pingFor(spot.id);
 
-  const card = h('div.card', {
+  const card = h('div.card.card--' + spot.kind, {
     role: 'button', tabindex: '0', dataset: { spot: spot.id },
     onclick: () => openSpot(spot),
     onkeydown: ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); openSpot(spot); } },
@@ -113,8 +118,8 @@ export function openSpot(spot) {
 
   sheet([
     h('div.det__art', {}, [cover(spot, { ratio: 0.52 })]),
-    h('div.sheet__pad.det', {}, [
-      h('h2', { text: spot.name }),
+    h('div.sheet__pad.det', { style: { '--k': `var(--k-${spot.kind})` } }, [
+      h('h2', { text: `${KIND_EMOJI[spot.kind] || ''} ${spot.name}` }),
       h('div.det__meta', {}, [
         h('span.tag.tag--' + spot.kind, { text: KIND_LABEL[spot.kind] }),
         h('span.pill.pill--tiny', { text: spot.area }),

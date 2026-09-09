@@ -13,11 +13,14 @@
 <link rel="stylesheet" href="css/base.css" />
 <link rel="stylesheet" href="css/components.css" />
 <link rel="stylesheet" href="css/views.css" />
+<link rel="stylesheet" href="css/fun.css" />
 </head>
 <body>
 
 <!-- ══ Boot / onboarding gate ══ -->
 <div id="gate" class="gate" hidden></div>
+
+<div class="stickers" id="stickers" aria-hidden="true"></div>
 
 <!-- ══ App shell ══ -->
 <div id="shell" class="shell" hidden>
@@ -40,6 +43,7 @@
       </nav>
 
       <div class="topbar__right">
+        <button id="themeBtn" class="theme-btn" title="Change the palette" aria-label="Change the palette">🎨</button>
         <button id="netChip" class="chip chip--net" title="Connection status">
           <span class="chip__pip"></span><span class="chip__label">Live</span>
         </button>
@@ -66,6 +70,7 @@
 <!-- ══ Overlays ══ -->
 <div id="sheet" class="sheet" hidden aria-modal="true" role="dialog"></div>
 <div id="toasts" class="toasts" aria-live="polite"></div>
+<div id="confetti" class="confetti" aria-hidden="true"></div>
 
 <noscript>
   <div style="padding:3rem;font:16px/1.6 Georgia,serif;text-align:center">

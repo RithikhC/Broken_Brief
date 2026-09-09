@@ -6,7 +6,7 @@
  * network changes is whether friends can see it yet.
  */
 import { h, mount, money, dur, clock, clamp } from '../lib/dom.js';
-import { spots as ALL_SPOTS, areas, VIBES, KIND_LABEL, city } from '../data/spots.js';
+import { spots as ALL_SPOTS, areas, VIBES, KIND_LABEL, KIND_EMOJI, city } from '../data/spots.js';
 import { buildPlan, alternativesFor } from '../core/planner.js';
 import { cityNow, nowMins, DAY_NAMES } from '../core/clock.js';
 import { cover } from '../lib/art.js';
@@ -17,6 +17,7 @@ import { sync } from '../lib/sync.js';
 import { toast } from '../ui/overlay.js';
 import { openSpot } from '../ui/card.js';
 import { makePoster } from '../ui/poster.js';
+import { confetti, burstFrom } from '../ui/delight.js';
 
 let opts = null;
 let plan = null;
@@ -191,6 +192,7 @@ function generate({ quiet = false } = {}) {
 
   paintPlan();
   if (!quiet) {
+    if (plan.ok) confetti({ y: innerHeight * 0.28, count: 40 });
     toast(plan.ok
       ? `Built a ${plan.stops.length}-stop day in ${plan.ms.toFixed(0)}ms — offline.`
       : 'Could not fit a day into those constraints', { tone: plan.ok ? 'warm' : 'mute', icon: plan.ok ? '✧' : '' });
@@ -301,7 +303,7 @@ function dayRibbon(plan) {
       ...plan.stops.map(st => h('div.daybar__pin', {
         style: { left: pct(st.arrive) + '%' },
         title: `${st.spot.name} · ${clock(st.arrive)}`,
-      }, [h('span')])),
+      }, [h('span', { text: KIND_EMOJI[st.spot.kind] || '' })])),
     ]),
     h('div.daybar__labels', {}, [
       h('span', { text: clock(lo) }),
@@ -313,12 +315,13 @@ function dayRibbon(plan) {
 
 function stopCard(st, i) {
   const s = st.spot;
-  const el = h('div.stop' + (st.locked ? ' is-locked' : ''), { style: { animationDelay: `${i * 60}ms` } }, [
+  const el = h('div.stop.stop--' + s.kind + (st.locked ? ' is-locked' : ''), { style: { animationDelay: `${i * 60}ms` } }, [
+    h('div.stop__num', { text: String(i + 1) }),
     h('div.stop__in', {}, [
       h('div.stop__art', {}, [cover(s, { ratio: 1 })]),
       h('div.stop__main', {}, [
         h('div.stop__time', { text: `${clock(st.arrive)} – ${clock(st.depart)} · ${dur(st.dwell)}` }),
-        h('h3.stop__name', { text: s.name }),
+        h('h3.stop__name', { text: `${KIND_EMOJI[s.kind] || ''} ${s.name}` }),
         h('div.stop__meta', {}, [
           h('span.tag.tag--' + s.kind, { text: KIND_LABEL[s.kind] }),
           h('span', { text: s.area }),
@@ -381,6 +384,7 @@ function savePlan() {
   if (!plan?.ok) return;
   const title = `${plan.stops[0].spot.area} day · ${money(plan.totals.total)}`;
   state.savePlan(plan, title);
+  confetti({ y: innerHeight * 0.3, count: 28 });
   toast(net.online ? `Saved <b>${title}</b> to your days` : `Saved locally — syncs when you're back`, { tone: 'warm', icon: '❤' });
 }
 

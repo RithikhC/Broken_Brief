@@ -439,3 +439,9 @@ export const VIBES = [
   { id: 'sunset',  emoji: '🌅', label: 'Chasing sunset', sub: 'golden hour first' },
   { id: 'budget',  emoji: '🪙', label: 'Barely spend',   sub: 'free and nearly-free' },
 ];
+
+/** Emoji per kind — used for card stickers, timeline markers and confetti. */
+export const KIND_EMOJI = {
+  cafe: '☕', dessert: '🍰', photo: '📸', art: '🎨',
+  activity: '🏺', view: '🌇', market: '🛍️', nature: '🌿',
+};

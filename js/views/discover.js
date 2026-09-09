@@ -16,7 +16,7 @@ import { spotCard } from '../ui/card.js';
 import { toast } from '../ui/overlay.js';
 
 const FILTERS = [
-  { id: 'all',     label: 'Everything' },
+  { id: 'all',     label: '✨ Everything' },
   { id: 'now',     label: '◉ Happening now' },
   { id: 'golden',  label: '🌅 Golden hour soon' },
   { id: 'cafe',    label: '☕ Cafés' },
@@ -27,6 +27,14 @@ const FILTERS = [
   { id: 'nature',  label: '🌿 Green' },
   { id: 'free',    label: '🪙 Free' },
 ];
+
+/** Each mood gets its own colour, so the grid of tiles reads as a palette. */
+const MOOD_COLOR = {
+  soft: 'var(--k-dessert)', film: 'var(--k-photo)', hands: 'var(--k-activity)',
+  sweet: 'var(--k-dessert)', green: 'var(--k-nature)', water: 'var(--k-view)',
+  oldtown: 'var(--k-market)', artsy: 'var(--k-art)', buzzy: 'var(--gold)',
+  sunset: 'var(--gold-2)', budget: 'var(--k-activity)',
+};
 
 let filter = 'all';
 let query = '';
@@ -89,7 +97,7 @@ function hero() {
 
   return h('div.hero', {}, [
     h('div.hero__deco', { html: deco() }),
-    h('h1', { text: `${greet} — here's what's good right now.` }),
+    h('h1', { html: `${greet} — <em>here's what's good</em> right now.` }),
     h('p', { html: `${city.name} · ${clock(nowMins())} local. ${lightLine}` }),
     h('div.hero__row', {}, [
       h('button.btn.btn--primary', {
@@ -123,6 +131,7 @@ function moodRow(grid) {
   const wrap = h('div.mood');
   VIBES.slice(0, 6).forEach(v => {
     const b = h('button.mood__b' + (moods.has(v.id) ? ' is-on' : ''), {
+      style: { '--mood': MOOD_COLOR[v.id] || 'var(--primary)' },
       onclick: () => {
         moods.has(v.id) ? moods.delete(v.id) : moods.add(v.id);
         b.classList.toggle('is-on');
