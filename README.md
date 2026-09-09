@@ -51,13 +51,23 @@ that's the document to read if you only read one.
 
 ## Run it
 
-No Node, no npm, no build. If you have Python:
+No Node, no npm, no build step.
+
+**Windows:** double-click `start.bat`.
+
+**Anything else:**
 
 ```bash
 py serve.py
 ```
 
-Then open **http://localhost:8000**. (Any static server works — `npx serve`, VS Code Live Server, GitHub Pages. It needs `http://` rather than `file://` because ES modules, service workers and IndexedDB all require a real origin.)
+Then open **http://localhost:8000**. Any static server works (`npx serve`, VS Code Live
+Server). It needs `http://` rather than `file://` because ES modules, service workers and
+IndexedDB all require a real origin.
+
+**Deploy it:** it's a static site, so *Settings → Pages → Deploy from branch `main` / root*
+puts it on the web with nothing to configure — and it installs to a phone home screen as a
+PWA from there.
 
 ---
 
